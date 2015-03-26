@@ -134,7 +134,32 @@ sum.sheet1 <- sheet1 %.%
             m.LB = mean(LB.percent),
             m.LS = mean(LS.percent),
             m.NBS = mean(NBS.percent),
-            m.RS = mean(RS.percent)) %.%
+            m.RS = mean(RS.percent),
+            # calculate to audpc
+            LF.audpc = audpc(m.LF, DVS),
+            LM.audpc = audpc(m.LM, DVS),
+            RH.audpc = audpc(m.RH, DVS),
+            WM.audpc = audpc(m.WM, DVS),
+            Defo.audpc = audpc(m.Defo, DVS),
+            BLB.audpc = audpc(m.BLB, DVS),
+            BLS.audpc = audpc(m.BLS, DVS),
+            LB.audpc = audpc(m.LB, DVS),
+            LS.audpc = audpc(m.LS, DVS),
+            NBS.audpc = audpc(m.NBS, DVS),
+            RS.audpc = audpc(m.RS, DVS),
+            
+            # ca
+            DH = max(DH.percent),
+            RT = max(RT.percent),
+            SS = max(SS.percent),
+            WH = max(WH.percent),
+            PM = max(PM.percent)
+            # disease
+            DP = max(DP.percent),
+            FSm = max(FSm.percent), 
+            NB = max(NB.percent),
+            ShB = max(ShB.percent),
+            ShR = max(ShR.percent)) %.%
 
   ### AUDPC # the functions from the agricolae is bugs for this format
 # this part is to apply the function to computate the audpc of eheach variables 
@@ -148,7 +173,9 @@ sum.sheet1 <- sheet1 %.%
             LB.audpc = audpc(m.LB, DVS),
             LS.audpc = audpc(m.LS, DVS),
             NBS.audpc = audpc(m.NBS, DVS),
-            RS.audpc = audpc(m.RS, DVS))
+            RS.audpc = audpc(m.RS, DVS),
+            #
+            DH + max)
 
 
 ######----- Analysis sheet 2 systemic injuies-----######
@@ -196,7 +223,7 @@ summarise( x.WA = audpc(m.WA, DVS),
 
 #####----- Analysis sheet 4 Yield Evalustion-----#####
 
-sum.sheet4 <- sheet4 %.% 
+sum.sheet4 <- data.sheet4 %.% 
   mutate(m.Y = (Y/MC)*14, yield.kg.ha = m.Y*2000) %.%
   group_by(season, year, treatment, rep) %.% 
   summarise( mean.ykh = mean(yield.kg.ha))
