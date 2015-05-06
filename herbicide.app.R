@@ -1,13 +1,13 @@
 #### Pesticide application in Indonesia #####
 
 data <- all.pesticide %>%
-        filter(location == "idn" & season == "ds")%>%
-        select(location, year, season, fno, herb, wmg.dvs) %>%
-        group_by(location, year, season, fno, herb, wmg.dvs) %>%
-        filter(!herb == "0" ) %>%
-        summarise(n.herb.app = n()) %>%
-        ungroup() %>%
-        arrange(fno)
+  filter(location == "idn", season == "ws")%>%
+  select(location, year, season, fno, herb, wmg.dvs) %>%
+  group_by(location, year, season, fno, herb, wmg.dvs) %>%
+  filter(!herb == "0" ) %>%
+  summarise(n.herb.app = n()) %>%
+  ungroup() %>%
+  arrange(fno)
 
 data$wmg.dvs <- as.factor(data$wmg.dvs)
 levels(data$wmg.dvs)[levels(data$wmg.dvs) == "T"] <- "TR"
@@ -46,9 +46,9 @@ data %>%
   mutate(freq = n.herb.app/nofarmers) %>%
   ggplot(., aes(x= herb, y = freq, fill = herb)) +
   geom_bar(stat = "identity") +
-  facet_grid(level ~ wmg.dvs, scale = "free" , space ="free") +
-  ylim(0,1) +
-  ggtitle("Herbicide Application in West Java, Indonesia from Survey Data \nin Wet Season 2013 to 2014") +
+  facet_grid(level*season ~ wmg.dvs, scale = "free" , space = "free") +
+  ylim(0, 1) +
+  ggtitle("Herbicide Application in West Java, Indonesia from\nWet Season Survey Data 2013 and 2014") +
   theme_minimal() +
   theme(axis.title = element_text(face = "bold", size = 10),
         axis.text.x = element_text(face = "bold", angle = 35,
@@ -60,9 +60,11 @@ data %>%
         strip.text.x = element_text(size = 10),
         strip.text.y = element_text(size = 10),
         legend.position = "none") +
-  xlab(" Herbicide") +
-  ylab("Average Number Applications/Season/Farmer)") +
-  scale_fill_brewer(palette= "Set3", name = "Active ingredient") +
+  xlab("Herbicide") +
+  ylab("Average Number Applications/Season/Farmer") +
+  scale_fill_brewer(palette = "Set3", name = "Active ingredient") +
   theme(legend.position = "none")
 
-ggsave("~/Google Drive/Graphs/SYT-SKEP/Survey/idn.ds.herbicide.png", height = 7, width = 10)
+ggsave("~/Google Drive/Figures/SYT-SKEP/Survey/idn.ds.herbicide.png", height = 7, width = 10)
+
+#eos

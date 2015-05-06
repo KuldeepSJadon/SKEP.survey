@@ -70,16 +70,25 @@ ggplot(yield,
 #ggsave("pic/survey.yield1.png", height = 6, width = 10, dpi = 300)
 
 ##### Graph yield of Indonesia #####
-
-ggplot(yield %>% filter(location == "Indonesia" & year == "2014", season == "Dry Season"),
-       aes(x= year, y= ymean, fill = location)) +
-        geom_boxplot() +
-        facet_grid(. ~ season) +
-        ylab("Yield (t/ha)") +
-        scale_fill_brewer(palette = "Pastel1") +
-        mytheme +
-        theme(legend.position = "none") +
-        ggtitle("Yields from Indonesia in 2014")
+ggplot(yield %>% filter(location == "Indonesia" & season == "Dry Season"),
+       aes(x = year, y = ymean)) +
+  geom_boxplot(aes(fill = location, colour = location), alpha = 0.65) +
+  facet_grid(. ~ year, scale = "free" , space = "free") +
+  ylab("Yield (t/ha)") +
+  theme_minimal() +
+  theme(axis.title = element_text(face = "bold", size = 10),
+        axis.text.x = element_blank(),
+        axis.text.y = element_text(face = "bold", size = 8),
+        plot.title = element_text(face = "bold", size = 15),
+        strip.text.x = element_text(size = 10),
+        strip.text.y = element_text(size = 10),
+        legend.position = "none") +
+  ylab("Yield (tons/ha)") +
+  xlab("") +
+  scale_fill_brewer(palette = "Set3")  +
+  scale_colour_brewer(palette = "Set3")  +
+  theme(legend.position = "none") +
+  ggtitle("Observed Crop Cut Yields from Indonesia Wet Season Surveys")
 
 ggsave("~/Google Drive/Figures/SYT-SKEP/Survey/Indonesia_Yield.png", width = 10, height = 7, units = "in")
 
