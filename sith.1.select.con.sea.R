@@ -1,4 +1,4 @@
-#load yield data from 11-yieldcombine.R
+#load yield data from 1-yieldcombine.R
 #
 #==========================================================
 ##### select country  and season ##########################
@@ -12,17 +12,19 @@
 # ds = dry season
 # ws = wet season
 
-country <- "vnm"
-sseason <- "ws"
+country <- "Indonesia"
+sseason <- "Wet Season"
 
 ##### Computation ####
 ydata <- yield %>% filter(location == country  & season == sseason)
 
-y_in_box <- ydata %>% 
-        filter(ymean > boxplot(ydata$ymean)$stat[2,] & ymean < boxplot(ymean$ymean)$stat[4,])
+y_in_box <- ydata %>%
+        filter(ydata$ymean > boxplot(ydata$ymean)$stat[2, ] & ydata$ymean < boxplot(ydata$ymean)$stat[4, ])
 
-y_low_box <- ydata %>% 
-        filter(ymean < boxplot(ydata$ymean)$stats[2,])
+y_low_box <- ydata %>%
+        filter(ydata$ymean < boxplot(ydata$ymean)$stats[2, ])
 
 y_high_box <- ydata %>%
-        filter(ymean > boxplot(ymean$ymean)$stat[4,])
+        filter(ydata$ymean > boxplot(ydata$ymean)$stat[4, ])
+
+#eos

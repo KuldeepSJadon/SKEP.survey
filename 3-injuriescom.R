@@ -18,13 +18,13 @@ library(reshape2)
 ##### End of loading packages
 
 # Load data
-source("12-injures.R")
+source("2-injuries.R")
 
 ##########################
 x.all.inj <- all.inj %>%
         mutate(Nlh = Nt*Nlt, # Number of leave = number of tiller * number of leave per tiller
                # tiller injuries
-               DH.percent = (DH/Nt)*100, # Percent of Dead Heart in on hill is number tiller demaged by  dead heart divide by number of tiller *100
+               DH.percent = (DH/Nt)*100, # Percent of Dead Heart in on hill is number tiller damaged by dead heart divide by number of tiller *100
                RT.percent = RT/Nt*100, # Percent of Rat damage in one hill
                # SNL.percent = SNL/Nt*100, # Percent of Snail damage in one hill
                RB.percent = RB/Nt*100, # Percent of Rice Bug injuries in one hill
@@ -102,11 +102,9 @@ levels(m.x.all.inj$location)[levels(m.x.all.inj$location) == "tha"] <- "Thailand
 )
 
 insectinj <- c("m.RB", "m.SS", "m.WH", "m.DH", "m.WM", "m.LF", "m.TH", "m.LM", "m.RH")
-m.x.all.inj$injtyp <- ifelse(m.x.all.inj$variable %in% insectinj, "Insect Injuries", "Disease"
-)
+m.x.all.inj$injtyp <- ifelse(m.x.all.inj$variable %in% insectinj, "Insect Injuries", "Disease")
 
 levels(m.x.all.inj$variable)[levels(m.x.all.inj$variable) == "m.RT"] <-  "Rat"
-
 levels(m.x.all.inj$variable)[levels(m.x.all.inj$variable) == "m.RB"] <- "Rice bug"
 levels(m.x.all.inj$variable)[levels(m.x.all.inj$variable) == "m.SS"] <- "Silver shoot"
 levels(m.x.all.inj$variable)[levels(m.x.all.inj$variable) == "m.WH"] <- "Whitehead"
