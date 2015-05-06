@@ -1,10 +1,10 @@
 #====================================================================
 ######## Load Pesticide application data #####
 #====================================================================
-## Load package 
+## Load package
 library(XLConnect)
 ##### combine all the file of pesticide application all countries ######
-file <- list.files(path = paste("E:/Google Drive/4.SKEP2ProjectData/Farm Survey/", sep = ""), pattern = "20[[:graph:]]+.xlsx$", full.names = TRUE)
+file <- list.files(path = "~/Google Drive/Data/SYT-SKEP/Survey/", pattern = "20[[:graph:]]+.xlsx$", full.names = TRUE)
 
 #### analysis of pesticide application #####
 pesticide.list <- list()
@@ -40,3 +40,5 @@ all.pesticide <- all.pesticide %>%
                   fung = as.factor(fung),
                   fung.dvs = as.factor(fung.dvs)
         )
+
+#eos

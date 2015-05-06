@@ -6,7 +6,7 @@
 # tmn = Tamil Nadu
 # ods = Odisha
 # tha = Thailand
-# vnm = Vientnam
+# vnm = Vietnam
 
 # ds = dry season
 # ws = wet season
