@@ -1,4 +1,5 @@
-
+#load yield data from 11-yieldcombine.R
+#
 #==========================================================
 ##### select country  and season ##########################
 #==========================================================
@@ -17,6 +18,11 @@ sseason <- "ws"
 ##### Computation ####
 ydata <- yield %>% filter(location == country  & season == sseason)
 
-adap <- ydata %>% filter(ymean > 6)
-major <- ydata %>% filter(ymean >= 4 & ymean <= 6)
-drif <- ydata %>% filter(ymean < 4)
+y_in_box <- ydata %>% 
+        filter(ymean > boxplot(ydata$ymean)$stat[2,] & ymean < boxplot(ymean$ymean)$stat[4,])
+
+y_low_box <- ydata %>% 
+        filter(ymean < boxplot(ydata$ymean)$stats[2,])
+
+y_high_box <- ydata %>%
+        filter(ymean > boxplot(ymean$ymean)$stat[4,])
