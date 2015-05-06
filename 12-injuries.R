@@ -1,38 +1,34 @@
 ###############################################################################
 #'title         : Load injuries profiles from survey data and combine in one file
 #'date          : May, 2015
-#'purpose       : load data from the shared Google Drive which is the exel 
+#'purpose       : load data from the shared Google Drive which is in Excel
 #'                format
-#'writed by     : Sith Jaisong (s.jaisong@irri.org)
-#'contact       : International Rice Research Institute
-#'input         : import excel file
+#'author        : Sith Jaisong (s.jaisong@irri.org)
+#'modified by   : Adam Sparks (a.sparks@irri.org), 6 May 2015
+#'contact       : s.jaisong@irri.org
+#'input         : Excel files of farm survey data
 #'output        : all.inj will be used in 13-injuriescom.R
 ###############################################################################
 ##### Loading packages
+library(XLConnect)
 library(dplyr)
 library(ggplot2)
 library(reshape)
 library(reshape2)
 ##### End of loading packages
 ##### Set the working directory
-#path <- "~/Google Drive/5.SKEP2Workshop/SKEP2_workshop_bandung/presentation" # for Mac
+path <- "~/Google Drive/Data/SYT-SKEP/Survey" # for Mac
 #path <- "E:/Google Drive/5.SKEP2Workshop/SKEP2_workshop_bandung/presentation" # for window
 #setwd(path)
 getwd()
 options(stringAsFactors = FALSE)
 ##### End od setting working directory #####
 
-library(XLConnect)
-library(dplyr)
-library(reshape)
-library(reshape2)
-library(ggplot2)
 options(java.parameters = "-Xmx1024m")
 #file <- list.files(path = paste("E:/Google Drive/4.SKEP2ProjectData/Farm Survey/", sep = ""), pattern = "20[[:graph:]]+.xlsx$", full.names = TRUE)
 
-# load inuiry data from ggdirve
-# please check I share this folder to Adam and Nancy
-file <- list.files(path = paste("~/Google Drive/4.SKEP2ProjectData/Farm Survey/", sep = ""), pattern = "20[[:graph:]]+.xlsx$", full.names = TRUE)
+# load injury data from GDrive
+file <- list.files(path = "~/Google Drive/Data/SYT-SKEP/Survey/", pattern = "20[[:graph:]]+.xlsx$", full.names = TRUE)
 
 idn.2013.ds.filepath <- file[1]
 ods.2013.ds.filepath <- file[2]

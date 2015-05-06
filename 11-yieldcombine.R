@@ -1,11 +1,12 @@
 ###############################################################################
 #'title         : Load yield data of survey data and plot yield by countries and seasons
 #'date          : May, 2015
-#'purpose       : load data from the shared Google Drive which is the exel 
+#'purpose       : load data from the shared Google Drive which is Excel
 #'                format
-#'writed by     : Sith Jaisong (s.jaisong@irri.org)
-#'contact       : International Rice Research Institute
-#'input         : import excel file
+#'author        : Sith Jaisong (s.jaisong@irri.org)
+#'modified by   : Adam H. Sparks (a.sparks@irri.org)
+#'contact       : s.jaisong@irri.org
+#'input         : Excel file of yield data from on-farm surveys
 #'output        : gggraph of yield
 ###############################################################################
 ##### Loading packages
@@ -15,18 +16,12 @@ library(reshape)
 library(reshape2)
 ##### End of loading packages
 
-#path <- "~/Google Drive/5.SKEP2Workshop/SKEP2_workshop_bandung/presentation"
-#path <- "E:/Google Drive/5.SKEP2Workshop/SKEP2_workshop_bandung/presentation"
-#setwd(path)
-#getwd() # check where your working directory is 
-
-#yfile <- list.files(path = paste("E:/Google Drive/5.SKEP2Workshop/SKEP2_workshop_bandung/presentation/", sep = ""), pattern = "csv$", full.names = TRUE) # For Window
-
-yfile <- list.files(path = paste("~/Google Drive/5.SKEP2Workshop/SKEP2_workshop_bandung/presentation", sep = ""), pattern = "csv$", full.names = TRUE) # For Mac
+#yfile <- list.files(path = paste("E:/Google Drive/SKEP2_workshop_bandung/presentation/", sep = ""), pattern = "csv$", full.names = TRUE) # For Window
+yfile <- list.files(path = paste("~/Google Drive/Data/SYT-SKEP/Survey", sep = ""), pattern = "csv$", full.names = TRUE)
 
 yield.list <- list() # create the list.file
 
-
+# store csv files in list
 for(i in 1: length(yfile)){
         yield.list[[i]] <- read.csv(file = yfile[i])
 }
@@ -62,7 +57,7 @@ source("mytheme.r")
 
 ##### Graph yield of all countries #####
 ggplot(yield,
-       aes(x= year, y= ymean, fill = location)) + 
+       aes(x= year, y= ymean, fill = location)) +
         geom_boxplot() +
         facet_grid(. ~ season) +
         ylab("Yield (t/ha)") +
@@ -76,8 +71,8 @@ ggplot(yield,
 
 ##### Graph yield of Indonesia #####
 
-ggplot(yield%>% filter(location == "Indonesia" & year == "2013", season == "Dry Season"),
-       aes(x= year, y= ymean, fill = location)) + 
+ggplot(yield %>% filter(location == "Indonesia" & year == "2014", season == "Dry Season"),
+       aes(x= year, y= ymean, fill = location)) +
         geom_boxplot() +
         facet_grid(. ~ season) +
         ylab("Yield (t/ha)") +
@@ -85,6 +80,8 @@ ggplot(yield%>% filter(location == "Indonesia" & year == "2013", season == "Dry 
         mytheme +
         theme(legend.position = "none") +
         ggtitle("Yields from Indonesia in 2014")
+
+ggsave("~/Google Drive/Figures/SYT-SKEP/Survey/Indonesia_Yield.png", width = 10, height = 7, units = "in")
 
 #ggsave("pic/indo.yield.png", height = 6, width = 12, dpi = 300)
 #============================================================================
@@ -96,16 +93,15 @@ ggplot(yield%>% filter(location == "Indonesia" & year == "2013", season == "Dry 
 #boxplot(ydta$ymean)$stats
 
 
-### select and caraterize farmer according to yields ####
+### select and categorize farmer according to yields ####
 #y_in_box <- ydata %>%
 #         filter(ymean > boxplot(ydata$ymean)$stats[2,] & ymean < boxplot(ydata$ymean)$stats[4,])
-# 
+#
 # y_low_box <- ydata %>%
 #         filter( ymean <= boxplot(ydata$ymean)$stats[2,])
-# 
+#
 # y_high_box <- ydata %>%
 #         filter(ymean >= boxplot(ydata$ymean)$stats[4,])
 
-# run this script and run the script the script the 
 
 # eos

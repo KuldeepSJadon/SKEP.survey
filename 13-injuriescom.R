@@ -1,10 +1,11 @@
 ###############################################################################
-#'title         : tecnical correction of injury data
+#'title         : technical correction of injury data
 #'date          : May, 2015
-#'purpose       : load data from the shared Google Drive which is the exel 
+#'purpose       : load data from the shared Google Drive which is Excel
 #'                format
-#'writed by     : Sith Jaisong (s.jaisong@irri.org)
-#'contact       : International Rice Research Institute
+#'author        : Sith Jaisong (s.jaisong@irri.org)
+#'modified by   : Adam Sparks (a.sparks@irri.org), 6 May 2015
+#'contact       : s.jaisong@irri.org
 #'input         : data from 12-injuires.R
 #'output        : gg-graph of injuiry data by country
 ###############################################################################
@@ -16,14 +17,14 @@ library(reshape)
 library(reshape2)
 ##### End of loading packages
 
-# NOTE
-# Go to 12-injuries.R before running this step
+# Load data
+source("12-injures.R")
 
 ##########################
 x.all.inj <- all.inj %>%
         mutate(Nlh = Nt*Nlt, # Number of leave = number of tiller * number of leave per tiller
                # tiller injuries
-               DH.percent = (DH/Nt)*100, # Percent of Dead Heart in on hill is number tiller demaged by  dead heart divide by number of tiller *100 
+               DH.percent = (DH/Nt)*100, # Percent of Dead Heart in on hill is number tiller demaged by  dead heart divide by number of tiller *100
                RT.percent = RT/Nt*100, # Percent of Rat damage in one hill
                # SNL.percent = SNL/Nt*100, # Percent of Snail damage in one hill
                RB.percent = RB/Nt*100, # Percent of Rice Bug injuries in one hill
@@ -143,16 +144,41 @@ m.x.all.inj1 <- m.x.all.inj %>% filter( location == "Odisha")
 
 allinju <- m.x.all.inj  %>% group_by(location, year, season, variable) %>%
         summarise(mv = mean(value))
-
 ggplot(data = m.x.all.inj1, aes(x = variable, y = value, fill = variable)) +
-        geom_boxplot() +
-        facet_grid(season*year ~ ., scale = "free", space = "free") +
-        ylim(c(1,100)) +
-        #scale_fill_brewer(palette= "Set3") + 
-        labs( fill = " Injuries") +
-      #  mytheme +
-        xlab("Injuries") +
-        ylab("Incidence (%)")+
-        ggtitle("Injury profiles of Indonesiaa survey data from 2013 to 2014")
-# just edit tyhe color and the legend the 
+  geom_boxplot() +
+  facet_grid(season*year ~ ., scale = "free", space = "free") +
+  ylim(c(1,100)) +
+  #scale_fill_brewer(palette= "Set3") +
+  labs( fill = " Injuries") +
+  #  mytheme +
+  xlab("Injuries") +
+  ylab("Incidence (%)")+
+  ggtitle("Injury profiles of Indonesiaa survey data from 2013 to 2014")
+# just edit tyhe color and the legend the
 #ggsave(filename = "pic/inj.idn.survey.png", width = 14, height = 10)
+
+ggsave("Indonesia_injury_profile.png", width = 10, height = 7, units = "in")
+
+ggplot(data = subset(m.x.all.inj1, variable != "Rice bug" & variable != "Rice hispa" & variable != "Panicle mite" & variable != "Thrip" & variable != "Dirty panicle" & variable != "Red Stripe" & variable != "Leaf miner" & variable != "Neck blast"), aes(x = variable, y = value)) +
+  geom_boxplot(aes(colour = variable, fill = variable), alpha = 0.65, outlier.size = 2) +
+  facet_grid(season ~ visit, scale = "free", space = "free") +
+  ylim(c(1, 100)) +
+  xlab("Injury") +
+  ylab("Incidence (%)")+
+  ggtitle("Injury profile from Indonesia survey data\n2013 to 2014") +
+  theme_minimal() +
+  theme(axis.title = element_text(face = "bold", size = 10),
+        axis.text.x = element_text(face = "bold", angle = 35,
+                                   size = 9,
+                                   hjust = 1,
+                                   vjust = 1),
+        axis.text.y = element_text(face = "bold", size = 8),
+        plot.title = element_text(face = "bold", size = 15),
+        strip.text.x = element_text(size = 10),
+        strip.text.y = element_text(size = 10),
+        legend.position = "none")
+
+ggsave("Indonesia_injury_profile_growth_stage.png", width = 10, height = 7, units = "in")
+
+
+#eos
