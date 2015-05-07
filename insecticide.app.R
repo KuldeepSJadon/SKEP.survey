@@ -1,5 +1,5 @@
 data <- all.pesticide %>%
-  filter(location == "idn") %>% #
+  filter(location == "idn", season == "ws") %>% #
   select(location, year, season, fno, insect, ins.dvs) %>%
   group_by(location, year, season, fno, insect, ins.dvs) %>%
   filter(!insect == "0" ) %>%

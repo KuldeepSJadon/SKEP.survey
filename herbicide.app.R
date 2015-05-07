@@ -34,7 +34,7 @@ levels(data$herb)[levels(data$herb) == "Paraquate dichloride"] <- "Paraquat"
 levels(data$herb)[levels(data$herb) == "Paraquat dichloride"] <- "Paraquat"
 levels(data$herb)[levels(data$herb) == "Metsulfuron-methy"] <- "Metsulfuron-methyl"
 levels(data$herb)[levels(data$herb) == "Pyrosulforon-ethyl"] <- "Pyrazosulfuron-ethyl"
-levels(data$herb)[levels(data$herb) == "Pyrasulforon-ethyl"] <- "Pyrazosulfuron-ethyl"
+levels(data$herb)[levels(data$herb) == "Pyrasulfuron-ethyl"] <- "Pyrazosulfuron-ethyl"
 
 levels(data$herb)
 
